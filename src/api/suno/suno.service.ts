@@ -4,13 +4,13 @@ import { CookieJar } from 'tough-cookie';
 import axios, { AxiosInstance } from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { UserAgentsUtil } from 'src/common/utils/user-agents.util';
-import { CreateCustomMusicDto } from './dto/create-suno.dto';
+import { CreateCustomMusicDto, CreateLyricsDto } from './dto/create-suno.dto';
 @Injectable()
 export class SunoService {
   private readonly client: AxiosInstance;
   private currentToken: string;
   private sid: string;
-  private BASE_URL = 'https://studio-api.suno.ai';
+  private readonly BASE_URL = 'https://studio-api.suno.ai';
   private readonly CLERK_BASE_URL = 'https://api.clerk.dev';
   constructor(private config: ConfigService) {
     const cookie = this.config.get('COOKIE');
@@ -60,11 +60,24 @@ export class SunoService {
     }
   }
 
-  async generateLyrics() {
+  async getMusic(ids: string) {
+    try {
+      const apiUrl = `${this.BASE_URL}/api/feed/?ids=${ids}`;
+      const response = await this.client.get(apiUrl);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async generateLyrics(playload: CreateLyricsDto) {
     await this.keepAlive();
+
     try {
       const apiUrl = `${this.BASE_URL}/api/generate/lyrics/`;
-      const response = await this.client.post(apiUrl, { prompt: '' });
+      const response = await this.client.post(apiUrl, {
+        prompt: playload.prompt,
+      });
       return response.data;
     } catch (error) {
       return error;

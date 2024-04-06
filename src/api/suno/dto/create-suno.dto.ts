@@ -67,3 +67,12 @@ export class CreateDescriptionModeMusicDto {
   @IsIn(['chirp-v3-0', 'chirp-v2-xxl-alpha'])
   mv?: string;
 }
+
+export class CreateLyricsDto {
+  @ApiProperty({
+    description: 'The text prompt to generate lyrics from.',
+    default: '',
+  })
+  @IsString()
+  prompt: string;
+}

@@ -1,14 +1,14 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { SunoService } from './suno.service';
-import { CreateCustomMusicDto } from './dto/create-suno.dto';
+import { CreateCustomMusicDto, CreateLyricsDto } from './dto/create-suno.dto';
 
 @Controller('suno')
 export class SunoController {
   constructor(private readonly sunoService: SunoService) {}
 
   @Post('/generate/lyrics')
-  generateLyrics() {
-    return this.sunoService.generateLyrics();
+  generateLyrics(@Body() prompt: CreateLyricsDto) {
+    return this.sunoService.generateLyrics(prompt);
   }
 
   @Get('/lyrics')
@@ -19,5 +19,10 @@ export class SunoController {
   @Post('/generate/music')
   generateMusic(@Body() customMusic: CreateCustomMusicDto) {
     return this.sunoService.generateMusic(customMusic);
+  }
+
+  @Get('/music')
+  getMusic(@Query('ids') ids: string) {
+    return this.sunoService.getMusic(ids);
   }
 }
