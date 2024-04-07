@@ -5,6 +5,7 @@ import axios, { AxiosInstance } from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { UserAgentsUtil } from 'src/common/utils/user-agents.util';
 import { CreateCustomMusicDto, CreateLyricsDto } from './dto/create-suno.dto';
+
 @Injectable()
 export class SunoService {
   private readonly client: AxiosInstance;
@@ -12,6 +13,8 @@ export class SunoService {
   private sid: string;
   private readonly BASE_URL = 'https://studio-api.suno.ai';
   private readonly CLERK_BASE_URL = 'https://api.clerk.dev';
+  private lastRefreshTime: number = null;
+  private readonly tokenExpiry: number = 5; // seconds
   constructor(private config: ConfigService) {
     const cookie = this.config.get('COOKIE');
     this.sid = this.config.get('SESSION_ID');
@@ -40,7 +43,7 @@ export class SunoService {
   }
 
   async generateMusic(playload: CreateCustomMusicDto) {
-    await this.keepAlive();
+    await this.getToken();
     try {
       if (!playload.model) {
         playload.model = 'chirp-v3-0';
@@ -71,7 +74,7 @@ export class SunoService {
   }
 
   async generateLyrics(playload: CreateLyricsDto) {
-    await this.keepAlive();
+    await this.getToken();
 
     try {
       const apiUrl = `${this.BASE_URL}/api/generate/lyrics/`;
@@ -85,7 +88,7 @@ export class SunoService {
   }
 
   async getLyrics(id: string) {
-    await this.keepAlive();
+    await this.getToken();
     try {
       const apiUrl = `${this.BASE_URL}/api/generate/lyrics/${id}`;
       const response = await this.client.get(apiUrl);
@@ -95,7 +98,19 @@ export class SunoService {
     }
   }
 
-  public async keepAlive(): Promise<void> {
+  async getToken() {
+    const currentTime = Date.now() / 1000; // current time in seconds
+
+    if (
+      this.currentToken === null ||
+      currentTime - this.lastRefreshTime >= this.tokenExpiry
+    ) {
+      // Refresh token if it's null or expired
+      await this.generateNewToken();
+      this.lastRefreshTime = currentTime;
+    }
+  }
+  private async generateNewToken(): Promise<void> {
     if (!this.sid) {
       throw new Error('Session ID is not set. Cannot renew token.');
     }
