@@ -64,6 +64,7 @@ export class SunoService {
   }
 
   async getMusic(ids: string) {
+    await this.getToken();
     try {
       const apiUrl = `${this.BASE_URL}/api/feed/?ids=${ids}`;
       const response = await this.client.get(apiUrl);
@@ -123,7 +124,6 @@ export class SunoService {
 
       const newToken = renewResponse.data['jwt'];
       // Update Authorization field in request header with the new JWT token
-
       this.currentToken = newToken;
     } catch (error) {
       console.log(error);
