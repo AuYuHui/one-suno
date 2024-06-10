@@ -24,20 +24,16 @@ declare namespace Api {
      * enable status
      *
      * - "1": enabled
-     * - "2": disabled
+     * - "0": disabled
      */
-    type EnableStatus = '1' | '2';
+    type EnableStatus = '1' | '0';
 
     /** common record */
     type CommonRecord<T = any> = {
       /** record id */
       id: number;
-      /** record creator */
-      createBy: string;
       /** record create time */
       createTime: string;
-      /** record updater */
-      updateBy: string;
       /** record update time */
       updateTime: string;
       /** record status */
@@ -60,6 +56,7 @@ declare namespace Api {
       userId: string;
       userName: string;
       buttons: string[];
+      roles: string[];
     }
   }
 
@@ -81,130 +78,25 @@ declare namespace Api {
     }
   }
 
-  /**
-   * namespace SystemManage
-   *
-   * backend api module: "systemManage"
-   */
-  namespace SystemManage {
+  namespace AccountManage {
     type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
 
-    /** role */
-    type Role = Common.CommonRecord<{
-      /** role name */
-      roleName: string;
-      /** role code */
-      roleCode: string;
-      /** role description */
-      roleDesc: string;
+    /** Account */
+    type Account = Common.CommonRecord<{
+      /** Account cookie */
+      cookie: string;
+      /** Account credit */
+      credit: string;
+      /** Account count */
+      count: string;
     }>;
 
-    /** role search params */
-    type RoleSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & CommonSearchParams
+    /** Account search params */
+    type AccountSearchParams = CommonType.RecordNullable<
+      Pick<Api.AccountManage.Account, 'status'> & CommonSearchParams
     >;
 
-    /** role list */
-    type RoleList = Common.PaginatingQueryRecord<Role>;
-
-    /** all role */
-    type AllRole = Pick<Role, 'id' | 'roleName' | 'roleCode'>;
-
-    /**
-     * user gender
-     *
-     * - "1": "male"
-     * - "2": "female"
-     */
-    type UserGender = '1' | '2';
-
-    /** user */
-    type User = Common.CommonRecord<{
-      /** user name */
-      userName: string;
-      /** user password */
-      password: string;
-    }>;
-
-    /** user search params */
-    type UserSearchParams = CommonType.RecordNullable<Pick<Api.SystemManage.User, 'userName'> & CommonSearchParams>;
-
-    /** user list */
-    type UserList = Common.PaginatingQueryRecord<User>;
-
-    /**
-     * menu type
-     *
-     * - "1": directory
-     * - "2": menu
-     */
-    type MenuType = '1' | '2';
-
-    type MenuButton = {
-      /**
-       * button code
-       *
-       * it can be used to control the button permission
-       */
-      code: string;
-      /** button description */
-      desc: string;
-    };
-
-    /**
-     * icon type
-     *
-     * - "1": iconify icon
-     * - "2": local icon
-     */
-    type IconType = '1' | '2';
-
-    type MenuPropsOfRoute = Pick<
-      import('vue-router').RouteMeta,
-      | 'i18nKey'
-      | 'keepAlive'
-      | 'constant'
-      | 'order'
-      | 'href'
-      | 'hideInMenu'
-      | 'activeMenu'
-      | 'multiTab'
-      | 'fixedIndexInTab'
-      | 'query'
-    >;
-
-    type Menu = Common.CommonRecord<{
-      /** parent menu id */
-      parentId: number;
-      /** menu type */
-      menuType: MenuType;
-      /** menu name */
-      menuName: string;
-      /** route name */
-      routeName: string;
-      /** route path */
-      routePath: string;
-      /** component */
-      component?: string;
-      /** iconify icon name or local icon name */
-      icon: string;
-      /** icon type */
-      iconType: IconType;
-      /** buttons */
-      buttons?: MenuButton[] | null;
-      /** children menu */
-      children?: Menu[] | null;
-    }> &
-      MenuPropsOfRoute;
-
-    /** menu list */
-    type MenuList = Common.PaginatingQueryRecord<Menu>;
-
-    type MenuTree = {
-      id: number;
-      label: string;
-      pId: number;
-      children?: MenuTree[];
-    };
+    /** Account list */
+    type AccountList = Common.PaginatingQueryRecord<Account>;
   }
 }

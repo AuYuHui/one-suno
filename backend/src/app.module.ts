@@ -9,6 +9,8 @@ import { User } from './admin/user/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { LoginGuard } from './login.guard';
+import { SunoModule } from './admin/suno/suno.module';
+import { Suno } from './admin/suno/entities/suno.entity';
 
 @Module({
   imports: [
@@ -25,9 +27,10 @@ import { LoginGuard } from './login.guard';
       database: process.env.MYSQL_DATABASE,
       synchronize: true,
       logging: true,
-      entities: [User],
+      entities: [User, Suno],
       poolSize: 10,
       connectorPackage: 'mysql2',
+      timezone: '+08:00',
     }),
     JwtModule.register({
       global: true,
@@ -39,6 +42,7 @@ import { LoginGuard } from './login.guard';
     ScheduleModule.forRoot(),
     ApiModule,
     UserModule,
+    SunoModule,
   ],
   providers: [
     {

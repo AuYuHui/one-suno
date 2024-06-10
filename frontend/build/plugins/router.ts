@@ -9,24 +9,13 @@ export function setupElegantRouter() {
       blank: 'src/layouts/blank-layout/index.vue'
     },
     customRoutes: {
-      names: [
-        'exception_403',
-        'exception_404',
-        'exception_500',
-        'document_project',
-        'document_project-link',
-        'document_vue',
-        'document_vite',
-        'document_unocss',
-        'document_naive',
-        'document_antd'
-      ]
+      names: ['exception_403', 'exception_404', 'exception_500']
     },
     routePathTransformer(routeName, routePath) {
       const key = routeName as RouteKey;
 
       if (key === 'login') {
-        const modules: UnionKey.LoginModule[] = ['pwd-login', 'code-login', 'register', 'reset-pwd', 'bind-wechat'];
+        const modules: UnionKey.LoginModule[] = ['pwd-login'];
 
         const moduleReg = modules.join('|');
 

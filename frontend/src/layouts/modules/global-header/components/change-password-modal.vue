@@ -15,7 +15,7 @@ const visible = defineModel<boolean>('visible', {
 const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule } = useFormRules();
 
-type Model = Pick<Api.SystemManage.User, 'password'>;
+type Model = Record<'password', string>;
 
 const model: Model = reactive(createDefaultModel());
 

@@ -40,6 +40,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'account',
+    path: '/account',
+    component: 'layout.base$view.account',
+    meta: {
+      title: 'account',
+      i18nKey: 'route.account'
+    }
+  },
+  {
     name: 'home',
     path: '/home',
     component: 'layout.base$view.home',
@@ -52,7 +61,7 @@ export const generatedRoutes: GeneratedRoute[] = [
   },
   {
     name: 'login',
-    path: '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
+    path: '/login/:module(pwd-login)?',
     component: 'layout.blank$view.login',
     props: true,
     meta: {

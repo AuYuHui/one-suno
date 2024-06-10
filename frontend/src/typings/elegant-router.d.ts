@@ -24,8 +24,9 @@ declare module "@elegant-router/types" {
     "403": "/403";
     "404": "/404";
     "500": "/500";
+    "account": "/account";
     "home": "/home";
-    "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
+    "login": "/login/:module(pwd-login)?";
   };
 
   /**
@@ -40,7 +41,7 @@ declare module "@elegant-router/types" {
 
   /**
    * custom route key
-   */
+   */ 
   export type CustomRouteKey = Extract<
     RouteKey,
     | "root"
@@ -49,19 +50,11 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
-    | "document"
-    | "document_project"
-    | "document_project-link"
-    | "document_vue"
-    | "document_vite"
-    | "document_unocss"
-    | "document_naive"
-    | "document_antd"
   >;
 
   /**
    * the generated route key
-   */
+   */ 
   export type GeneratedRouteKey = Exclude<RouteKey, CustomRouteKey>;
 
   /**
@@ -72,6 +65,7 @@ declare module "@elegant-router/types" {
     | "403"
     | "404"
     | "500"
+    | "account"
     | "home"
     | "login"
   >;
@@ -84,7 +78,6 @@ declare module "@elegant-router/types" {
     | "root"
     | "not-found"
     | "exception"
-    | "document"
   >;
 
   /**
@@ -96,6 +89,7 @@ declare module "@elegant-router/types" {
     | "404"
     | "500"
     | "login"
+    | "account"
     | "home"
   >;
 
@@ -109,13 +103,6 @@ declare module "@elegant-router/types" {
     | "exception_403"
     | "exception_404"
     | "exception_500"
-    | "document_project"
-    | "document_project-link"
-    | "document_vue"
-    | "document_vite"
-    | "document_unocss"
-    | "document_naive"
-    | "document_antd"
   >;
 
   /**
@@ -178,7 +165,7 @@ declare module "@elegant-router/types" {
         component: `view.${K}`;
       }
     : never;
-
+  
   /**
    * the center level route
    */
@@ -201,7 +188,7 @@ declare module "@elegant-router/types" {
         children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
-
+  
   /**
    * the custom first level route
    */

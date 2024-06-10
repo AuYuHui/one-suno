@@ -8,14 +8,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { LoginDto } from './dto/login.dto';
-import * as crypto from 'crypto';
 import { RegisterDto } from './dto/register.dto';
-
-function md5(str: string) {
-  const hash = crypto.createHash('md5');
-  hash.update(str);
-  return hash.digest('hex');
-}
+import dayjs from 'dayjs';
+import { md5 } from 'src/utils';
 
 @Injectable()
 export class UserService {
@@ -83,9 +78,15 @@ export class UserService {
     }
 
     user.password = md5(password);
+    user.updateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
 
     try {
-      await this.userRepository.save(user);
+      await this.userRepository.update(
+        {
+          id: userId,
+        },
+        user,
+      );
     } catch (error) {
       this.logger.error(error, UserService);
       throw new BadRequestException('更新失败');

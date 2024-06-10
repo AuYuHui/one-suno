@@ -150,7 +150,8 @@ const local: App.I18n.Schema = {
     exception: '异常页',
     exception_403: '403',
     exception_404: '404',
-    exception_500: '500'
+    exception_500: '500',
+    account: '账号管理'
   },
   page: {
     login: {
@@ -199,19 +200,6 @@ const local: App.I18n.Schema = {
         title: '绑定微信'
       }
     },
-    about: {
-      title: '关于',
-      introduction: `SoybeanAdmin 是一个优雅且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。SoybeanAdmin 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。`,
-      projectInfo: {
-        title: '项目信息',
-        version: '版本',
-        latestBuildTime: '最新构建时间',
-        githubLink: 'Github 地址',
-        previewLink: '预览地址'
-      },
-      prdDep: '生产依赖',
-      devDep: '开发依赖'
-    },
     home: {
       greeting: '早安，{userName}, 今天又是充满活力的一天!',
       weatherDesc: '今日多云转晴，20℃ - 25℃!',
@@ -239,150 +227,23 @@ const local: App.I18n.Schema = {
       },
       creativity: '创意'
     },
-    function: {
-      tab: {
-        tabOperate: {
-          title: '标签页操作',
-          addTab: '添加标签页',
-          addTabDesc: '跳转到关于页面',
-          closeTab: '关闭标签页',
-          closeCurrentTab: '关闭当前标签页',
-          closeAboutTab: '关闭"关于"标签页',
-          addMultiTab: '添加多标签页',
-          addMultiTabDesc1: '跳转到多标签页页面',
-          addMultiTabDesc2: '跳转到多标签页页面(带有查询参数)'
-        },
-        tabTitle: {
-          title: '标签页标题',
-          changeTitle: '修改标题',
-          change: '修改',
-          resetTitle: '重置标题',
-          reset: '重置'
-        }
-      },
-      multiTab: {
-        routeParam: '路由参数',
-        backTab: '返回 function_tab'
-      },
-      toggleAuth: {
-        toggleAccount: '切换账号',
-        authHook: '权限钩子函数 `hasAuth`',
-        superAdminVisible: '超级管理员可见',
-        adminVisible: '管理员可见',
-        adminOrUserVisible: '管理员和用户可见'
-      },
-      request: {
-        repeatedErrorOccurOnce: '重复请求错误只出现一次',
-        repeatedError: '重复请求错误',
-        repeatedErrorMsg1: '自定义请求错误 1',
-        repeatedErrorMsg2: '自定义请求错误 2'
-      }
-    },
-    manage: {
+    account: {
       common: {
         status: {
           enable: '启用',
           disable: '禁用'
-        }
+        },
+        updateTime: '更新时间',
+        createTime: '创建时间'
       },
-      role: {
-        title: '角色列表',
-        roleName: '角色名称',
-        roleCode: '角色编码',
-        roleStatus: '角色状态',
-        roleDesc: '角色描述',
-        menuAuth: '菜单权限',
-        buttonAuth: '按钮权限',
-        form: {
-          roleName: '请输入角色名称',
-          roleCode: '请输入角色编码',
-          roleStatus: '请选择角色状态',
-          roleDesc: '请输入角色描述'
-        },
-        addRole: '新增角色',
-        editRole: '编辑角色'
-      },
-      user: {
-        title: '用户列表',
-        password: '密码',
-        form: {
-          password: '请输入密码'
-        },
-        addUser: '新增用户',
-        editUser: '编辑用户',
-        gender: {
-          male: '男',
-          female: '女'
-        }
-      },
-      menu: {
-        home: '首页',
-        title: '菜单列表',
-        id: 'ID',
-        parentId: '父级菜单ID',
-        menuType: '菜单类型',
-        menuName: '菜单名称',
-        routeName: '路由名称',
-        routePath: '路由路径',
-        pathParam: '路径参数',
-        layout: '布局',
-        page: '页面组件',
-        i18nKey: '国际化key',
-        icon: '图标',
-        localIcon: '本地图标',
-        iconTypeTitle: '图标类型',
-        order: '排序',
-        constant: '常量路由',
-        keepAlive: '缓存路由',
-        href: '外链',
-        hideInMenu: '隐藏菜单',
-        activeMenu: '高亮的菜单',
-        multiTab: '支持多页签',
-        fixedIndexInTab: '固定在页签中的序号',
-        query: '路由参数',
-        button: '按钮',
-        buttonCode: '按钮编码',
-        buttonDesc: '按钮描述',
-        menuStatus: '菜单状态',
-        form: {
-          home: '请选择首页',
-          menuType: '请选择菜单类型',
-          menuName: '请输入菜单名称',
-          routeName: '请输入路由名称',
-          routePath: '请输入路由路径',
-          pathParam: '请输入路径参数',
-          page: '请选择页面组件',
-          layout: '请选择布局组件',
-          i18nKey: '请输入国际化key',
-          icon: '请输入图标',
-          localIcon: '请选择本地图标',
-          order: '请输入排序',
-          keepAlive: '请选择是否缓存路由',
-          href: '请输入外链',
-          hideInMenu: '请选择是否隐藏菜单',
-          activeMenu: '请选择高亮的菜单的路由名称',
-          multiTab: '请选择是否支持多标签',
-          fixedInTab: '请选择是否固定在页签中',
-          fixedIndexInTab: '请输入固定在页签中的序号',
-          queryKey: '请输入路由参数Key',
-          queryValue: '请输入路由参数Value',
-          button: '请选择是否按钮',
-          buttonCode: '请输入按钮编码',
-          buttonDesc: '请输入按钮描述',
-          menuStatus: '请选择菜单状态'
-        },
-        addMenu: '新增菜单',
-        editMenu: '编辑菜单',
-        addChildMenu: '新增子菜单',
-        type: {
-          directory: '目录',
-          menu: '菜单'
-        },
-        iconType: {
-          iconify: 'iconify图标',
-          local: '本地图标'
-        }
-      }
+      id: 'ID',
+      cookie: 'Cookie',
+      credit: '账户积分',
+      count: '剩余数量',
+      status: '状态',
+      title: '账号管理',
+      addAccount: '新增账号',
+      editAccount: '编辑账号'
     }
   },
   form: {

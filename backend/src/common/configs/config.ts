@@ -1,7 +1,5 @@
 import type { Config } from './config.interface';
 
-console.log('process.env.APP_PORT', process.env.APP_PORT);
-
 const config: Config = {
   nest: {
     port: Number.parseInt(process.env.APP_PORT, 10) || 3000,

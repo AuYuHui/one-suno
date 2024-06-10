@@ -1,3 +1,4 @@
+import { Status } from 'src/common/enums/status.enum';
 import { DateTransformer } from 'src/date.transformer';
 import {
   Column,
@@ -8,21 +9,34 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Suno {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({
-    length: 50,
-    comment: '用户名',
+    length: 4096,
+    type: 'varchar',
+    comment: 'suno cookie',
   })
-  userName: string;
+  cookie: string;
 
   @Column({
-    length: 50,
-    comment: '密码',
+    comment: '账户余额',
   })
-  password: string;
+  credit: number;
+
+  @Column({
+    comment: '创作剩余次数',
+  })
+  count: number;
+
+  @Column({
+    type: 'enum',
+    enum: Status,
+    default: Status.ENABLED,
+    comment: '账号状态',
+  })
+  status: number;
 
   @CreateDateColumn({
     name: 'create_time',
