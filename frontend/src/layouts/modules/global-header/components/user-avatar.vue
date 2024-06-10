@@ -5,20 +5,23 @@ import { useAuthStore } from '@/store/modules/auth';
 import { useRouterPush } from '@/hooks/common/router';
 import { useSvgIcon } from '@/hooks/common/icon';
 import { $t } from '@/locales';
+import { useBoolean } from '~/packages/hooks/src';
+import ChangePasswordModal from './change-password-modal.vue';
 
 defineOptions({
   name: 'UserAvatar'
 });
 
 const authStore = useAuthStore();
-const { routerPushByKey, toLogin } = useRouterPush();
+const { toLogin } = useRouterPush();
 const { SvgIconVNode } = useSvgIcon();
+const { bool, setTrue } = useBoolean();
 
 function loginOrRegister() {
   toLogin();
 }
 
-type DropdownKey = 'user-center' | 'logout';
+type DropdownKey = 'change-pwd' | 'logout';
 
 type DropdownOption =
   | {
@@ -34,8 +37,8 @@ type DropdownOption =
 const options = computed(() => {
   const opts: DropdownOption[] = [
     {
-      label: $t('common.userCenter'),
-      key: 'user-center',
+      label: $t('common.changePassword'),
+      key: 'change-pwd',
       icon: SvgIconVNode({ icon: 'ph:user-circle', fontSize: 18 })
     },
     {
@@ -68,7 +71,7 @@ function handleDropdown(key: DropdownKey) {
   if (key === 'logout') {
     logout();
   } else {
-    routerPushByKey(key);
+    setTrue();
   }
 }
 </script>
@@ -85,6 +88,8 @@ function handleDropdown(key: DropdownKey) {
       </ButtonIcon>
     </div>
   </NDropdown>
+
+  <ChangePasswordModal v-model:visible="bool" />
 </template>
 
 <style scoped></style>

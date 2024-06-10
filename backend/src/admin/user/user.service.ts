@@ -1,4 +1,9 @@
-import { HttpException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -64,5 +69,26 @@ export class UserService {
         id: userId,
       },
     });
+  }
+
+  async updateUserInfo(userId: number, password: string) {
+    const user = await this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      throw new HttpException('用户不存在', 404);
+    }
+
+    user.password = md5(password);
+
+    try {
+      await this.userRepository.save(user);
+    } catch (error) {
+      this.logger.error(error, UserService);
+      throw new BadRequestException('更新失败');
+    }
   }
 }

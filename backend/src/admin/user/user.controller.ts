@@ -6,6 +6,7 @@ import {
   ValidationPipe,
   BadRequestException,
   Get,
+  Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { LoginDto } from './dto/login.dto';
@@ -44,9 +45,19 @@ export class UserController {
     return await this.userService.register(user);
   }
 
-  @Get('getUserInfo')
+  @Get('userInfo')
   @RequireLogin()
   async getUserInfo(@UserInfo('userId') userId: number) {
     return await this.userService.getUserInfo(userId);
+  }
+
+  // 更新用户密码
+  @Put('userInfo')
+  @RequireLogin()
+  async updateUserInfo(
+    @UserInfo('userId') userId: number,
+    @Body('password') password: string,
+  ) {
+    return await this.userService.updateUserInfo(userId, password);
   }
 }

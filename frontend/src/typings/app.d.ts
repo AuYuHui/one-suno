@@ -292,6 +292,7 @@ declare namespace App {
         update: string;
         updateSuccess: string;
         userCenter: string;
+        changePassword: string;
         yesOrNo: {
           yes: string;
           no: string;
@@ -510,21 +511,9 @@ declare namespace App {
           };
           user: {
             title: string;
-            userName: string;
-            userGender: string;
-            nickName: string;
-            userPhone: string;
-            userEmail: string;
-            userStatus: string;
-            userRole: string;
+            password: string;
             form: {
-              userName: string;
-              userGender: string;
-              nickName: string;
-              userPhone: string;
-              userEmail: string;
-              userStatus: string;
-              userRole: string;
+              password: string;
             };
             addUser: string;
             editUser: string;

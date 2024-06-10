@@ -1,10 +1,9 @@
-import type { AxiosResponse } from 'axios';
-import { BACKEND_ERROR_CODE, createFlatRequest } from '@sa/axios';
+import { createFlatRequest } from '@sa/axios';
 import { useAuthStore } from '@/store/modules/auth';
 import { $t } from '@/locales';
 import { localStg } from '@/utils/storage';
 import { getServiceBaseURL } from '@/utils/service';
-import { handleRefreshToken, showErrorMsg } from './shared';
+import { showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
@@ -31,7 +30,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
       return String(response.data.code) === '200' || String(response.data.code) === '201';
     },
-    async onBackendFail(response, instance) {
+    async onBackendFail(response) {
       const authStore = useAuthStore();
 
       function handleLogout() {
@@ -77,21 +76,6 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
         return null;
       }
 
-      // when the backend response code is in `expiredTokenCodes`, it means the token is expired, and refresh token
-      // the api `refreshToken` can not return error code in `expiredTokenCodes`, otherwise it will be a dead loop, should return `logoutCodes` or `modalLogoutCodes`
-      const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
-      if (expiredTokenCodes.includes(response.data.code) && !request.state.isRefreshingToken) {
-        request.state.isRefreshingToken = true;
-
-        const refreshConfig = await handleRefreshToken(response.config);
-
-        request.state.isRefreshingToken = false;
-
-        if (refreshConfig) {
-          return instance.request(refreshConfig) as Promise<AxiosResponse>;
-        }
-      }
-
       return null;
     },
     transformBackendResponse(response) {
@@ -101,25 +85,9 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       // when the request is fail, you can show error message
 
       let message = error.message;
-      let backendErrorCode = '';
 
       // get backend error message and code
-      if (error.code === BACKEND_ERROR_CODE) {
-        message = error.response?.data?.msg || message;
-        backendErrorCode = error.response?.data?.code || '';
-      }
-
-      // the error message is displayed in the modal
-      const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [];
-      if (modalLogoutCodes.includes(backendErrorCode)) {
-        return;
-      }
-
-      // when the token is expired, refresh token and retry request, so no need to show error message
-      const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
-      if (expiredTokenCodes.includes(backendErrorCode)) {
-        return;
-      }
+      message = error.response?.data?.msg || message;
 
       showErrorMsg(request.state, message);
     }
