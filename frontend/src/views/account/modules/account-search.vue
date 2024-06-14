@@ -18,6 +18,7 @@ const emit = defineEmits<Emits>();
 const { formRef, validate, restoreValidation } = useNaiveForm();
 
 const model = defineModel<Api.AccountManage.AccountSearchParams>('model', { required: true });
+
 const enableStatusOptions = transformRecordToOption(enableStatusRecord);
 
 async function reset() {

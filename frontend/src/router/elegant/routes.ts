@@ -45,7 +45,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     component: 'layout.base$view.account',
     meta: {
       title: 'account',
-      i18nKey: 'route.account'
+      i18nKey: 'route.account',
+      icon: 'mdi:account',
     }
   },
   {

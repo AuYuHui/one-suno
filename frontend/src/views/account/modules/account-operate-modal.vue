@@ -47,7 +47,7 @@ function createDefaultModel(): Model {
   return {
     id: -1,
     cookie: '',
-    status: '1'
+    status: 1
   };
 }
 

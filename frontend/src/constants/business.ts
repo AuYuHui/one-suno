@@ -1,4 +1,6 @@
-export const enableStatusRecord: Record<Api.Common.EnableStatus, App.I18n.I18nKey> = {
+type StringEnableStatus = `${Api.Common.EnableStatus}`;
+
+export const enableStatusRecord: Record<StringEnableStatus, App.I18n.I18nKey> = {
   '1': 'page.account.common.status.enable',
   '0': 'page.account.common.status.disable'
 };
