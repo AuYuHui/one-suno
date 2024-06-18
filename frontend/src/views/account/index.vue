@@ -3,7 +3,7 @@ import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { fetchDeleteAccount, fetchGetAccountList } from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
-import { enableStatusRecord } from '@/constants/business';
+import { accountTypeRecord, enableStatusRecord } from '@/constants/business';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import AccountSearch from './modules/account-search.vue';
 import AccountOperateModal from './modules/account-operate-modal.vue';
@@ -24,6 +24,19 @@ const { columns, columnChecks, data, getData, loading, mobilePagination, searchP
       title: $t('page.account.id'),
       align: 'center',
       minWidth: 100
+    },
+    {
+      key: 'account',
+      title: $t('page.account.account'),
+      align: 'center',
+      minWidth: 100
+    },
+    {
+      key: 'accountType',
+      title: $t('page.account.accountType'),
+      align: 'center',
+      minWidth: 100,
+      render: row => accountTypeRecord[row.accountType]
     },
     {
       key: 'credit',

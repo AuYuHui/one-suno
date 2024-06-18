@@ -2,8 +2,10 @@
 import { computed, reactive, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { enableStatusOptions } from '@/constants/business';
+import { accountTypeRecord, enableStatusOptions } from '@/constants/business';
 import { fetchCreateAccount, fetchUpdateAccount } from '@/service/api';
+import { AccountType } from '@/enum';
+import { transformRecordToOption } from '@/utils/common';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -39,22 +41,26 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.AccountManage.Account, 'cookie' | 'status' | 'id'>;
+type Model = Pick<Api.AccountManage.Account, 'cookie' | 'status' | 'account' | 'password' | 'accountType'>;
 
 const model: Model = reactive(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
-    id: -1,
     cookie: '',
-    status: 1
+    status: 1,
+    account: '',
+    password: '',
+    accountType: AccountType.GOOGLE
   };
 }
 
-type RuleKey = Extract<keyof Model, 'cookie'>;
+type RuleKey = Extract<keyof Model, 'cookie' | 'account' | 'password'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
-  cookie: defaultRequiredRule
+  cookie: defaultRequiredRule,
+  account: defaultRequiredRule,
+  password: defaultRequiredRule
 };
 
 function handleInitModel() {
@@ -98,8 +104,22 @@ watch(visible, () => {
 <template>
   <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
     <NForm ref="formRef" :model="model" :rules="rules">
+      <NFormItem :label="$t('page.account.account')" path="account">
+        <NInput v-model:value="model.account" :placeholder="$t('page.account.account')" />
+      </NFormItem>
+      <NFormItem :label="$t('page.account.password')" path="password">
+        <NInput v-model:value="model.password" :placeholder="$t('page.account.password')" />
+      </NFormItem>
+
       <NFormItem :label="$t('page.account.cookie')" path="cookie">
         <NInput v-model:value="model.cookie" type="textarea" :placeholder="$t('page.account.cookie')" />
+      </NFormItem>
+      <NFormItem :label="$t('page.account.accountType')">
+        <NSelect
+          v-model:value="model.accountType"
+          :placeholder="$t('page.account.accountType')"
+          :options="transformRecordToOption(accountTypeRecord)"
+        />
       </NFormItem>
       <NFormItem :label="$t('page.account.status')" path="status">
         <NRadioGroup v-model:value="model.status">

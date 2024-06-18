@@ -242,6 +242,9 @@ const local: App.I18n.Schema = {
       credit: 'Credit',
       status: 'Status',
       title: 'Account Mange',
+      account: 'Account',
+      password: 'Password',
+      accountType: 'Account Type',
       editAccount: 'Edit Account',
       addAccount: 'Add Account'
     }

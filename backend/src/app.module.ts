@@ -11,6 +11,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { LoginGuard } from './login.guard';
 import { SunoModule } from './admin/suno/suno.module';
 import { Suno } from './admin/suno/entities/suno.entity';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { Suno } from './admin/suno/entities/suno.entity';
     ApiModule,
     UserModule,
     SunoModule,
+    RedisModule,
   ],
   providers: [
     {

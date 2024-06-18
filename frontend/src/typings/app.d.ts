@@ -448,6 +448,9 @@ declare namespace App {
           count: string;
           status: string;
           title: string;
+          account: string;
+          password: string;
+          accountType: string;
           addAccount: string;
           editAccount: string;
         };

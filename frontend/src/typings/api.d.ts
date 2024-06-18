@@ -89,6 +89,12 @@ declare namespace Api {
       credit: string;
       /** Account count */
       count: string;
+      /** Account type */
+      accountType: 'google' | 'microsoft';
+      /** Account */
+      account: string;
+      /** Account password */
+      password: string;
     }>;
 
     /** Account search params */

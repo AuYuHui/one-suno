@@ -11,7 +11,7 @@ export function fetchCreateAccount(data: Pick<Api.AccountManage.Account, 'cookie
 }
 
 /** update account */
-export function fetchUpdateAccount(data: Pick<Api.AccountManage.Account, 'id' | 'cookie' | 'status'>) {
+export function fetchUpdateAccount(data: Pick<Api.AccountManage.Account, 'cookie' | 'status'>) {
   return request<Api.AccountManage.Account>({ url: '/admin/suno', method: 'put', data });
 }
 

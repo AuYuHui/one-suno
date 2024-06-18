@@ -39,6 +39,7 @@
     "consola": "^3.2.3",
     "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
+    "ioredis": "^5.4.1",
     "kolorist": "^1.8.0",
     "mysql2": "^3.10.0",
     "reflect-metadata": "^0.2.2",

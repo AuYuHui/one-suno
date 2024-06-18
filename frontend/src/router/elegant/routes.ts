@@ -46,7 +46,7 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'account',
       i18nKey: 'route.account',
-      icon: 'mdi:account',
+      icon: 'mdi:account'
     }
   },
   {

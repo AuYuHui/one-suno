@@ -239,9 +239,12 @@ const local: App.I18n.Schema = {
       id: 'ID',
       cookie: 'Cookie',
       credit: '账户积分',
-      count: '剩余数量',
+      count: '剩余次数',
       status: '状态',
       title: '账号管理',
+      account: '账号',
+      password: '密码',
+      accountType: '账号类型',
       addAccount: '新增账号',
       editAccount: '编辑账号'
     }

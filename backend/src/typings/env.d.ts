@@ -20,5 +20,12 @@ declare namespace NodeJS {
     MYSQL_DATABASE: string;
     /** The secret used to sign JWT tokens. */
     JWT_SECRET: string;
+
+    REDIS_HOST: string;
+    REDIS_PORT: string;
+    REDIS_USERNAME: string;
+    REDIS_PASSWORD: string;
+    REDIS_DATABASE: string;
+    REDIS_KEY_PREFIX: string;
   }
 }

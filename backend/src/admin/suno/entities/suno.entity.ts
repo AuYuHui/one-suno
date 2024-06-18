@@ -1,3 +1,4 @@
+import { AccountType } from 'src/common/enums/account.enum';
 import { Status } from 'src/common/enums/status.enum';
 import { DateTransformer } from 'src/date.transformer';
 import {
@@ -12,6 +13,21 @@ import {
 export class Suno {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({
+    comment: '账号',
+  })
+  account: string;
+
+  @Column({
+    comment: '密码',
+  })
+  password: string;
+
+  @Column({
+    comment: '账号类型',
+  })
+  accountType: AccountType;
 
   @Column({
     length: 4096,

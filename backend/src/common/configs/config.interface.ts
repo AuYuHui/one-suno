@@ -3,6 +3,7 @@ export interface Config {
   cors: CorsConfig;
   swagger: SwaggerConfig;
   jwt: SecurityConfig;
+  redis: ReidsConfig;
 }
 
 export interface NestConfig {
@@ -24,4 +25,13 @@ export interface SwaggerConfig {
 
 export interface SecurityConfig {
   JWT_SECRET: string;
+}
+
+export interface ReidsConfig {
+  REDIS_HOST: string;
+  REDIS_PORT: number;
+  REDIS_USERNAME: string;
+  REDIS_PASSWORD: string;
+  REDIS_DATABASE: string;
+  REDIS_KEY_PREFIX: string;
 }
